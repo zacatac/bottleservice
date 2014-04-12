@@ -1,0 +1,31 @@
+<h1>Listing drivers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stock cheap</th>
+      <th>Stock classy</th>
+      <th>Phone</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @drivers.each do |driver| %>
+      <tr>
+        <td><%= driver.stock_cheap %></td>
+        <td><%= driver.stock_classy %></td>
+        <td><%= driver.phone %></td>
+        <td><%= link_to 'Show', driver %></td>
+        <td><%= link_to 'Edit', edit_driver_path(driver) %></td>
+        <td><%= link_to 'Destroy', driver, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Driver', new_driver_path %>

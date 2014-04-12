@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stock_cheap: 1
+  stock_classy: 1
+  phone: 1
+
+two:
+  stock_cheap: 1
+  stock_classy: 1
+  phone: 1

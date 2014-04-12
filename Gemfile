@@ -43,3 +43,18 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+# Geocoder
+gem 'geocoder'
+
+# Authentication 
+gem 'devise'
+
+# Payments
+gem 'stripe', '~> 1.11.0'
+
+# Google maps 
+gem 'gmaps4rails', '~> 2.1.2'
+
+# images
+gem 'paperclip'
