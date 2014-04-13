@@ -1,7 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<%= "#{@order.cheap_beer}" %>
-<%= "#{@order.class_beer}" %>
+<h1>Your Order</h1>
 
+<p><%= "Cheap:#{@order.cheap_beer} @ " %></p>
+<p><%= "Class:#{@order.class_beer} @ " %></p>
+
+<p><%= "Driver:#{@order.driver}"%> </p>
 <%= link_to 'Edit', edit_order_path(@order) %> |
 <%= link_to 'Back', orders_path %>

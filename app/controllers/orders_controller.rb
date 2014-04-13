@@ -15,11 +15,16 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
-    @products = []
+    @products = brew_week()
+  end
+
+  def brew_week
+    products = []
     @@this_week.each_with_index do |id,index|
       puts "ID:#{id}"
-      @products[index] = Product.find(id)
-     end
+      products[index] = Product.find(id)
+    end
+    return products
   end
 
   # GET /orders/1/edit
@@ -33,10 +38,18 @@ class OrdersController < ApplicationController
     @order = Order.new(order_params)
     puts "ORDER"
     puts "#{@order}"
+    @order.driver = Driver.new(:stock_cheap => 2,
+                               :stock_classy => 3,
+                               :phone => 8675309)
     respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @order }        
+        if @order.member.nil?
+          format.html { redirect_to new_member_registration_path, notice: 'Order was successfully created.' }
+          format.json { render action: 'show', status: :created, location: @order }        
+        else
+          format.html { redirect_to @order, notice: 'Order was successfully created.' }
+          format.json { render action: 'show', status: :created, location: @order }        
+        end
       else
         format.html { render action: 'new' }
         format.json { render json: @order.errors, status: :unprocessable_entity }
@@ -56,9 +69,7 @@ class OrdersController < ApplicationController
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
-    if @order.member.nil? 
-        redirect_to new_member_registration_path
-    end
+
   end
 
   # DELETE /orders/1
