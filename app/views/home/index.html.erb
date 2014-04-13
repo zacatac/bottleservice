@@ -1,9 +1,17 @@
 
 <h1>Bottle Service</h1>
 
-<%= button_to "Sign In", new_member_session_path,:method => "get" %>
-<%= button_to "Sign Up", new_member_registration_path,:method => "get" %>
-<% @products.each do |product| %>
+<% if member_signed_in? %>
+
+  <div>Signed in as: <%= current_member.email %></div>
+  <%= button_to "Not you?", destroy_member_session_path,:method => "delete" %>
+  <%= button_to "Logout", destroy_member_session_path,:method => "delete" %>
+  <% else %>
+  <%= button_to "Sign In", new_member_session_path,:method => "get" %>
+  <%= button_to "Sign Up", new_member_registration_path,:method => "get" %>
+<% end %>
+
+<% @products.each_with_index do |product,index| %>
 <p>
   <strong>Title:</strong>
   <%= product.title %>
@@ -29,5 +37,8 @@
   $<%= product.price %>
 </p>
 
+<%= text_field "#{product.title}", :method => "post" %>
+
 <% end %>
-<%= button_to "Checkout", orders_path, :method => "get" %>
+
+<%= button_to "Checkout", order_path(:id) , :method => "post" %>

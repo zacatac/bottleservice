@@ -1,4 +1,4 @@
-<%= form_for(@order) do |f| %>
+<%= form_for(@order, html: {multipart: true}) do |f| %>
   <% if @order.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
@@ -10,8 +10,64 @@
       </ul>
     </div>
   <% end %>
+<p>
+  <strong>Title:</strong>
+  <%= @products[0].title %>
+</p>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<p>
+  <strong>Description:</strong>
+  <%= @products[0].description %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= image_tag @products[0].image_url %>
+</p>
+
+<p>
+  <strong>Info url:</strong>
+  <%= link_to @products[0].info_url %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  $<%= @products[0].price %>
+</p>
+
+<%= f.number_field(:cheap_beer, in: 0.0..20.0, step: 1.0) %>
+
+
+<p>
+  <strong>Title:</strong>
+  <%= @products[1].title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @products[1].description %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= image_tag @products[1].image_url %>
+</p>
+
+<p>
+  <strong>Info url:</strong>
+  <%= link_to @products[1].info_url %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  $<%= @products[1].price %>
+</p>
+
+<%= f.number_field(:class_beer, in: 0.0..20.0, step: 1.0) %>
+
+<p>
+
+</p>
+
+  <%= f.submit %>
 <% end %>

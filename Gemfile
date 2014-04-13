@@ -58,3 +58,6 @@ gem 'gmaps4rails', '~> 2.1.2'
 
 # images
 gem 'paperclip'
+
+# gon, js variable passing to RoR
+gem 'gon', '~> 5.0.4'

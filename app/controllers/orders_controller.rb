@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-
+  @@this_week = [1,2]
   # GET /orders
   # GET /orders.json
   def index
@@ -15,6 +15,11 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
+    @products = []
+    @@this_week.each_with_index do |id,index|
+      puts "ID:#{id}"
+      @products[index] = Product.find(id)
+     end
   end
 
   # GET /orders/1/edit
@@ -24,12 +29,14 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
+    puts "ORDERPARAMS"
     @order = Order.new(order_params)
-
+    puts "ORDER"
+    puts "#{@order}"
     respond_to do |format|
       if @order.save
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @order }
+        format.json { render action: 'show', status: :created, location: @order }        
       else
         format.html { render action: 'new' }
         format.json { render json: @order.errors, status: :unprocessable_entity }
@@ -48,6 +55,9 @@ class OrdersController < ApplicationController
         format.html { render action: 'edit' }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
+    end
+    if @order.member.nil? 
+        redirect_to new_member_registration_path
     end
   end
 
@@ -69,6 +79,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params[:order]
+      params.require(:order).permit(:cheap_beer, :class_beer, :member)
     end
 end
